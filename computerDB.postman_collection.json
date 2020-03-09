@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "7b414864-2934-4452-a60f-c952b98ffe38",
+		"name": "computerDB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create computers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bac629e-03eb-4a08-91de-eea65d33fdaf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.globals.get(\"myUUID\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "fe6df7df-53e5-4e6c-a72d-19aeeb81a95b",
+						"exec": [
+							"var uuid =require('uuid')",
+							"var myUUID = uuid.v4()",
+							"pm.globals.set(\"myUUID\", myUUID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "computer-database.herokuapp.com",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "68",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://computer-database.herokuapp.com",
+						"type": "text"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": " text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "http://computer-database.herokuapp.com/computers/new",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "{{myUUID}}",
+							"type": "text"
+						},
+						{
+							"key": "introduced",
+							"value": "2001-01-01",
+							"type": "text"
+						},
+						{
+							"key": "discontinued",
+							"value": "2001-01-01",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://computer-database.herokuapp.com/computers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the computers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "500527bc-eaf5-48e5-b083-0699ecd8a370",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Computers database\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://computer-database.herokuapp.com/computers",
+				"description": "Get request"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
